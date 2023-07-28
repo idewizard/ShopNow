@@ -1,20 +1,17 @@
-package br.com.shopnow.servicekafka;
+package br.com.shopnow.serviceproduct;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TopicListener {
-
+public class TopicListenerTeste {
     @KafkaListener(topics = "${spring.kafka.consumer.topic.name.consumer}", groupId = "group_id")
     public void consume(ConsumerRecord<String, String> payload){
         log.info("Mensagem Recebida: {}", payload.value());
     }
-
 }
