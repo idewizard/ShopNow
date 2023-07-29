@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TopicListenerTeste {
-    @KafkaListener(topics = "${spring.kafka.consumer.topic.name.consumer}", groupId = "group_id")
+    @KafkaListener(topics = "${spring.kafka.consumer.topic.name.consumer}", groupId = "1")
     public void consume(ConsumerRecord<String, String> payload){
         log.info("Mensagem Recebida: {}", payload.value());
     }

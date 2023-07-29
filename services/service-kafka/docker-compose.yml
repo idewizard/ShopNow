@@ -6,9 +6,22 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-    # volumes:
-    #   - ./data/container_data/zk-data:/var/lib/zookeeper/data
-    #   - ./data/container_data/zk-txn-logs:/var/lib/zookeeper/log
+  init-kafka:
+    image: alpine:latest
+    depends_on:
+      - zookeeper
+    command: |
+      "
+      # blocks until kafka is reachable
+      kafka-topics --zookeeper localhost:2181 --list
+
+      echo -e 'Creating kafka topics'
+      kafka-topics --zookeeper localhost:2181 --create --if-not-exists --topic teste --replication-factor 3 --partitions 2
+      kafka-topics --zookeeper localhost:2181 --create --if-not-exists --topic teste2 --replication-factor 3 --partitions 1
+
+      echo -e 'Successfully created the following topics:'
+      kafka-topics --zookeeper localhost:2181 --list
+      "
 
   kafka-1:
     image: confluentinc/cp-enterprise-kafka:5.4.0
@@ -24,10 +37,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:39092,HOST://0.0.0.0:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:39092,HOST://localhost:9092
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
-    # volumes:
-    #   - ./data/container_data/kafka-1-data:/var/lib/kafka/data
 
   kafka-2:
     image: confluentinc/cp-enterprise-kafka:5.4.0
@@ -43,10 +53,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:49092,HOST://0.0.0.0:19092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:49092,HOST://localhost:19092
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
-    # volumes:
-    #   - ./data/container_data/kafka-2-data:/var/lib/kafka/data
 
   kafka-3:
     image: confluentinc/cp-enterprise-kafka:5.4.0
@@ -62,5 +69,4 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:59092,HOST://0.0.0.0:29092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:59092,HOST://localhost:29092
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100

@@ -10,4 +10,4 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       topic:
         name:
-          consumer: teste
+          consumer: modelS
