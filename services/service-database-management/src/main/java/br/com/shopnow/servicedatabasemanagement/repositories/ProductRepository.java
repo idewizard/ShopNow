@@ -1,6 +1,7 @@
-package br.com.shopnow.serviceproduct.repositories;
+package br.com.shopnow.servicedatabasemanagement.repositories;
 
-import br.com.shopnow.serviceproduct.modals.Product;
+
+import br.com.shopnow.servicedatabasemanagement.modals.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

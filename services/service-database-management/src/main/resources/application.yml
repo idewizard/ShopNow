@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    product:
+      url: jdbc:mysql://localhost:3306/product
+      username: root
+      password: root
+      driverClassName: com.mysql.cj.jdbc.Driver
+    invoice:
+      url: jdbc:mysql://localhost:3306/invoice
+      username: root
+      password: root
+      driverClassName: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    spring.jpa.database-platform: org.hibernate.dialect.MySQL5Dialect
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.security: DEBUG
+
