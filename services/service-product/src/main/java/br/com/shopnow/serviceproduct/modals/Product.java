@@ -17,8 +17,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of = "id")
-@EqualsAndHashCode(of = "id")
 public class Product {
 
     @Id

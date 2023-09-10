@@ -19,8 +19,7 @@ import java.util.Objects;
 @EnableJpaRepositories(
         basePackageClasses = Product.class,
         entityManagerFactoryRef = "productEntityManagerFactory",
-        transactionManagerRef = "productTransactionManager"
-)
+        transactionManagerRef = "productTransactionManager")
 public class ProductJpaConfiguration {
 
     @Bean
